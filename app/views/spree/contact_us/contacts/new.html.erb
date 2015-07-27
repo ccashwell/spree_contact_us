@@ -30,7 +30,9 @@
     <p>
       <%= f.label :subject %>
       <span class="required">*</span><br/>
-      <%= f.text_field :subject, class: 'required form-control' %>
+      <%= f.select :subject, class: 'required form-control', do %>
+        <%= options_for_select(Spree::ContactUs::Config.contact_subject_options) %>
+      <% end %>
     </p>
   <% end %>
   <p>
