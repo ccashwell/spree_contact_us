@@ -1,6 +1,9 @@
 class Spree::ContactUs::ContactsController < Spree::StoreController
 
   helper "spree/products"
+  
+  before_filter :populate_taxonomies
+  
   def create
     @contact = Spree::ContactUs::Contact.new(params[:contact_us_contact])
 
@@ -16,10 +19,13 @@ class Spree::ContactUs::ContactsController < Spree::StoreController
 
   def new
     @contact = Spree::ContactUs::Contact.new
-    @taxonomies = Spree::Taxonomy.includes(root: :children)
   end
 
   private
+
+  def populate_taxonomies
+    @taxonomies = Spree::Taxonomy.includes(root: :children)
+  end
 
   def accurate_title
     Spree.t(:contact_us_title)
